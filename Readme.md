@@ -1,1 +1,1 @@
-terraform repo
+terraform repository
