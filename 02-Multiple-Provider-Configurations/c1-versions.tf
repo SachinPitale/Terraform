@@ -3,11 +3,11 @@
 # Why we used mutltiple provider.
 
 # For example you have two region eastus and westus  where vm is running .
-# when you perform delete opration that time eastus vm must be deleted  with disk but westus vm deleted without disk.
+# when you perform delete opration that time eastus vm must be deleted  with disk but westus vm deleted without disk not for westus disk vm.
 
 
 # Terraform Block
-
+# Terraform Block
 terraform {
   required_version = ">= 0.15"
   required_providers {
@@ -36,3 +36,4 @@ provider "azurerm" {
   #environment = "german"
   #subscription_id = "JJJJ"
 }
+  
