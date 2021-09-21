@@ -37,7 +37,7 @@ resource "azurerm_public_ip" "web1" {
 resource "azurerm_network_interface" "web1-inc" {
   name = "web1-inc"
   location = azurerm_resource_group.myrg1.location
-  gresource_group_name = azurerm_resource_group.myrg1.name
+  resource_group_name = azurerm_resource_group.myrg1.name
   ip_configuration  {
     name = "internal"
     subnet_id = azurerm_subnet.websubnet.id
