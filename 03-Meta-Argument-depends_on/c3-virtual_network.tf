@@ -40,7 +40,7 @@ resource "azurerm_network_interface" "web1-inc" {
   gresource_group_name = azurerm_resource_group.myrg1.name
   ip_configuration  {
     name = "internal"
-    subnet_id = azurem_resource_group.id
+    subnet_id = azurerm_subnet.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id = azurerm_public_ip.web1.id
 
