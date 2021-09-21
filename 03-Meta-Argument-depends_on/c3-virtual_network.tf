@@ -10,7 +10,7 @@ resource "azurerm_virtual_network" "uatvnet" {
 resource "azurerm_subnet" "websubnet" {
   name = "websunbet"
   resource_group_name =  azurerm_resource_group.myrg1.name
-  virtual_network_name = azurerm_virtual_network.uatvnet
+  virtual_network_name = azurerm_virtual_network.uatvnet.name
   address_prefixes = [ "10.10.1.0/24" ]
 
 }
