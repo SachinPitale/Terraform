@@ -1,3 +1,4 @@
+# Create Virtual Network
 resource "azurerm_virtual_network" "uatvnet" {
   name = "Uat-vnet"
   location = azurerm_resource_group.myrg1.location
@@ -5,6 +6,7 @@ resource "azurerm_virtual_network" "uatvnet" {
   address_space = [ "10.10.0.0/16" ]
 }
 
+# Create Subnet
 resource "azurerm_subnet" "websubnet" {
   name = "websunbet"
   resource_group_name =  azurerm_resource_group.myrg1.name
@@ -13,6 +15,7 @@ resource "azurerm_subnet" "websubnet" {
 
 }
 
+# Create Public IP Address
 resource "azurerm_public_ip" "web1" {
   depends_on = [
     azurerm_virtual_network.uatvnet,
@@ -24,7 +27,22 @@ resource "azurerm_public_ip" "web1" {
   allocation_method = "static"
   domain_name_label = "web1-vm-${random_string.myrandom.id}"
   tags = {
-    environemt = UAT
+    environemt = "UAT"
   }
   
+}
+
+# Create Network Interface
+
+resource "azurerm_network_interface" "web1-inc" {
+  name = "web1-inc"
+  location = azurerm_resource_group.myrg1.location
+  gresource_group_name = azurerm_resource_group.myrg1.name
+  ip_configuration  {
+    name = "internal"
+    subnet_id = azurem_resource_group.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id = azurerm_public_ip.web1.id
+
+  }  
 }
