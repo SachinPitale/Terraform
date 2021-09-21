@@ -7,27 +7,32 @@
 
 
 # Terraform Block
+
 terraform {
-    required_version = ">= 0.15"
-    required_providers {
-        azurerm = {
-            source = "hasicorp/azurerm"
-            version = ">= 2.0"
-        }
+  required_version = ">= 0.15"
+  required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = ">= 2.0"
     }
+  }
 }
 
-# Provider block 1 for east us
+# Provider-1 for EastUS (Default Provider)
 provider "azurerm" {
-    features {}
-
+  features {}
 }
 
+# Provider-2 for WestUS
 provider "azurerm" {
-    features {
-        virtaul_machine {
-            delete_os_disk_on_deletion  = false #  This will ensure when the Virtual Machine is destroyed, Disk is not deleted, default is true and we can alter it at provider level
-        }
+  features {
+    virtual_machine {
+      delete_os_disk_on_deletion = false # This will ensure when the Virtual Machine is destroyed, Disk is not deleted, default is true and we can alter it at provider level
     }
-    alias = "provider2-westus"
+  }
+  alias = "provider2-westus"
+  #client_id = "XXXX"
+  #client_secret = "YYY"
+  #environment = "german"
+  #subscription_id = "JJJJ"
 }
