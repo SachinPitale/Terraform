@@ -1,6 +1,6 @@
 # Create a resource group in EastUS region - Uses Default Provider
 resource "azurerm_resource_group " "myrg1" {
-    name = "rg-1"
+    name = "myrg-1"
     location = "East US"
 }
 
