@@ -6,7 +6,7 @@ resource "azurerm_linux_virtual_machine" "webserver" {
   location = azurerm_resource_group.myrg1.location
   size = "Standard_DS1_v2"
   admin_username = "azureuser"
-  network_interface_ids = [ azurerm_network_interfac.web1-inc.id ]
+  network_interface_ids = [ azurerm_network_interface.web1-inc.id ]
   admin_ssh_key {
     username = "azureuser"
     public_key = file("${path.module}.ssh-keys/terraform-azure.pub")
