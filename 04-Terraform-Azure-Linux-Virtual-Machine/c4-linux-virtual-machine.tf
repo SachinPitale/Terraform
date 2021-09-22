@@ -23,5 +23,5 @@ resource "azurerm_linux_virtual_machine" "webserver" {
     sku = "83-gen2"
     version = "latest"
   }
-  custom_data = filebase("${path.module}/app-scripts/app1-cloud-init.txt")
+  custom_data = filebase64("${path.module}/app-scripts/app1-cloud-init.txt")
 }
