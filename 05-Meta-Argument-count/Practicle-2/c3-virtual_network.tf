@@ -22,11 +22,11 @@ resource "azurerm_public_ip" "web1" {
     azurerm_subnet.websubnet  
   ]
   count = 2
-  name = "web-${count.index}"
+  name = "webserver-${count.index}"
   resource_group_name = azurerm_resource_group.myrg1.name
   location = azurerm_resource_group.myrg1.location
   allocation_method = "Static"
-  domain_name_label = "web-${count.index}"
+  domain_name_label = "webserver-${count.index}"
   tags = {
     environemt = "UAT"
   }
@@ -37,7 +37,7 @@ resource "azurerm_public_ip" "web1" {
 
 resource "azurerm_network_interface" "web1-inc" {
   count = 2
-  name = "web-${count.index}"
+  name = "webserver-${count.index}"
   location = azurerm_resource_group.myrg1.location
   resource_group_name = azurerm_resource_group.myrg1.name
   ip_configuration  {
