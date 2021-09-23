@@ -26,7 +26,7 @@ resource "azurerm_public_ip" "web1" {
   resource_group_name = azurerm_resource_group.myrg1.name
   location = azurerm_resource_group.myrg1.location
   allocation_method = "Static"
-  domain_name_label = "web-${count.index}-${random_string.myrandom.id}"
+  domain_name_label = "web-${count.index}"
   tags = {
     environemt = "UAT"
   }
