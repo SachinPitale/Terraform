@@ -13,6 +13,6 @@ lifecyle Meta-Argument block contains 3 arguments
 # Add Lifecycle Block inside Resource Block to alter behavior
 
 # Lifecycle Block inside a Resource
-lifecycle {
-    create_before_destroy = true
-  }
+    lifecycle {
+        create_before_destroy = true
+    }
