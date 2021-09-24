@@ -1,6 +1,6 @@
 # Generate Terraform plan file
 
-terraform plan -var="resource_group_name=demorg" -var="resource_group_location=westus" -var="virtual_network_name=demovnet" -var="subnet_name=demosubnet"  -out v1.plan
+terraform plan -var="resource_group_name=demorg" -var="resource_group_location=westus" -var="virtual_network_name=demovnet"  -out v1.plan
 
 
 # Terraform Show
