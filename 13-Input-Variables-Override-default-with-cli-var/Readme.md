@@ -1,6 +1,3 @@
-# Generate Terraform Plan and use that using Terraform Apply
-# Generate plan file with -var and use that with apply
-
 # Generate Terraform plan file
 
 terraform plan -var="resource_group_name=demorg" -var="resource_group_location=westus" -var="virtual_network_name=demovnet" -var="subnet_name=demosubnet"  -out v1.plan
