@@ -14,7 +14,7 @@ resource "azurerm_subnet" "websubnet" {
   resource_group_name =  azurerm_resource_group.myrg1.name
   virtual_network_name = azurerm_virtual_network.uatvnet.name
   address_prefixes = [ "10.30.1.0/24" ]
-  tags =  var.common_tags
+  
 }
 # Create Public IP Address
 resource "azurerm_public_ip" "web1" {
