@@ -1,6 +1,6 @@
 # Azure MySQL Database Server
 resource "azurerm_mysql_server" "mysqlserver" {
-  name                = "${var.business_unit}-${var.environment}-${var.db_name}"  # This needs to be globally unique within Azure.
+  name                = "${var.Business_Unit}-${var.environment}-${var.db_name}"  # This needs to be globally unique within Azure.
   location            = azurerm_resource_group.myrg1.location
   resource_group_name = azurerm_resource_group.myrg1.name
 
