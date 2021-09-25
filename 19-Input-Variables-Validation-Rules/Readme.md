@@ -1,50 +1,92 @@
 ---
-title: Terraform Input Variables with Collection Type maps
-description: Terraform Input Variables with Collection Type maps
+title: Terraform Input Variables with Validation Rules
+description: Learn Terraform Input Variables with Validation Rules
 ---
 ## Introduction
-- Implement complex type constructors like `maps`
-- Learn to use `lookup` function
+- Learn some Terraform Functions
+1. length()
+2. substr()
+3. contains()
+4. lower()
+5. regex()
+6. can()
+- Implement Custom Validation Rules in Variables
 
-## Implement complex type cosntructors like  `maps`
-- [Type Constraints](https://www.terraform.io/docs/language/expressions/types.html)
-- **map (or object):** a group of values identified by named labels, like {name = "Mabel", age = 52}.
-- Implement Map function for variable `public_ip_sku` and `common_tags`
+## Learn Terraform Length Function
+- The `terraform console` command provides an interactive console for evaluating expressions.
+- [Terraform Console](https://www.terraform.io/docs/cli/commands/console.html)
+- [Terraform Length Function](https://www.terraform.io/docs/language/functions/length.html)
 ```t
+# Go to Terraform Console
+terraform console
 
+# Test length function
+Template: length()
 
-##  Update c4-virtual-network.tf Public IP Resource
+# String
+length("hi")
+length("hello")
+
+# List
+length(["a", "b", "c"]) 
+
+# Map
+length({"key" = "value"}) 
+length({"key1" = "value1", "key2" = "value2" }) 
+```
+
+## Learn Terraform SubString Function
+- [Terraform Sub String Function](https://www.terraform.io/docs/language/functions/substr.html)
 ```t
-# Create Public IP Address
-resource "azurerm_public_ip" "mypublicip" {
-  name                = "mypublicip-1"
-  resource_group_name = azurerm_resource_group.myrg.name
-  location            = azurerm_resource_group.myrg.location
-  allocation_method   = "Static"
-  domain_name_label = "app1-vm-${random_string.myrandom.id}"
-  #sku = var.public_ip_sku["eastus"]
-  sku = lookup(var.public_ip_sku, var.resoure_group_location)
-  tags = var.common_tags
+# Go to Terraform Console
+terraform console
+
+# Test substr function
+Template: substr(string, offset, length)
+substr("Terraform", 1, 4)
+substr("Terraform", 0, 6)
+substr("Terraform", 0, 1)
+substr("Terraform", 0, 0)
+substr("Terraform", 0, 10)
+```
+
+## Learn Terraform contains() Function
+- [Terraform Contains Function](https://www.terraform.io/docs/language/functions/contains.html)
+```t
+# Go to Terraform Console
+terraform console
+
+# Test contains() function
+Template: contains(list, value)
+contains(["a", "b", "c"], "a")
+contains(["a", "b", "c"], "d")
+contains(["eastus", "eastus2"], "westus2")
+```
+
+## Learn Terraform lower() and upper() Function
+- [Terraform Lower Function](https://www.terraform.io/docs/language/functions/lower.html)
+- [Terraform Upper Function](https://www.terraform.io/docs/language/functions/upper.html)
+
+
+##  Create Resource Group Variable with Validation Rules
+- Understand and implement custom validation rules in variables
+- **condition:** Defines the expression used to evaluate the Input Variable value. Must return either `true for valid`, or `false for invalid value`.
+- **error_message:** Defines the error message displayed by Terraform when the condition expression returns false for an invalid value. Must be ended with period or question mark 
+- **c2-variables.tf**
+```t
+# 4. Resource Group Location
+variable "resoure_group_location" {
+  description = "Resource Group Location"
+  type = string
+  default = "eastus"
+  validation {
+    condition  = var.resoure_group_location == "eastus" || var.resoure_group_location == "eastus2"
+    #condition = contains(["eastus", "eastus2"], lower(var.resoure_group_location))
+    error_message = "We only allow Resources to be created in eastus or eastus2 Locations."
+  }  
 }
 ```
-
-
-
-##  lookup() function
-- [Terraform lookup function](https://www.terraform.io/docs/language/functions/lookup.html)
-```t
-# Terraform lookup() Function
-lookup({a="ay", b="bee"}, "a", "what?")
-lookup({a="ay", b="bee"}, "b", "what?")
-lookup({a="ay", b="bee"}, "c", "what?")
-
-# Terraform lookup() Function with our map
-lookup({"eastus"="Basic", "eastus2"="Standard"},"eastus", "Basic")
-lookup({"eastus"="Basic", "eastus2"="Standard"},"eastus2", "Basic")
-lookup({"eastus"="Basic", "eastus2"="Standard"},"", "Basic")
-```
-
-## Execute Terraform Commands
+##  Run Terraform commands
 ```t
 # Initialize Terraform
 terraform init
@@ -56,57 +98,107 @@ terraform validate
 terraform fmt
 
 # Review the terraform plan
-terraform plan 
-
-# Terraform Apply
-terraform apply -auto-approve
-
-# Observation
-1. Verify Public IP SKU should be "Standard"
-2. Verify Tags for Resource Group, Vnet, Public IP and Network Interface
-```
-
-## Uncomment Public Resource below line
-- Understand how to reference a specific value from a map
-```t
-## Uncomment
-# Reference Specific value from Maps variable var.public_ip_sku
-  sku = var.public_ip_sku["eastus"]
-
-## Comment
-  sku = lookup(var.public_ip_sku, var.resoure_group_location)  
-
-# Terraform Plan
 terraform plan
 
 # Observation
-1. Verify Public IP resource and SKU should be "Basic"
+1. When `resoure_group_location = "eastus"`, terraform plan should pass
+2. When `resoure_group_location = "eastus2"`, terraform plan should pass
+3. When `resoure_group_location = "westus"`, terraform plan should fail with error message as validation rule failed. 
+
+# Uncomment validation rule with contains() function and comment previous one
+condition = contains(["eastus", "eastus2"], lower(var.resoure_group_location))
+
+# Review the terraform plan
+terraform plan
+
+# Observation
+1. When `resoure_group_location = "eastus"`, terraform plan should pass
+2. When `resoure_group_location = "eastus2"`, terraform plan should pass
+3. When `resoure_group_location = "westus"`, terraform plan should fail with error message as validation rule failed. 
+```
+## Learn Terraform regex() and can() Function
+- [Terraform regex Function](https://www.terraform.io/docs/language/functions/regex.html)
+- [Terraform can Function](https://www.terraform.io/docs/language/functions/can.html)
+```t
+# Go to Terraform Console
+terraform console
+
+# Test regex() function
+Template: regex(pattern, string)
+### TRUE CASES
+regex("india$", "westindia")
+regex("india$", "southindia")
+can(regex("india$", "westindia"))
+can(regex("india$", "southindia"))
+
+### FAILURE CASES
+regex("india$", "eastus")
+can(regex("india$", "eastus"))
 ```
 
-## Clean-Up
+## Step-09: Update Resource Group Location Variable with can() and regex() function related Validation Rule
+- Update Resource Group Location Variable with can() and regex() function related Validation Rule
 ```t
-# Destroy Resources
-terraform destroy -auto-approve
-
-# Delete files
-rm -rf .terraform*
-rm -rf terraform.tfstate*
-```
-
-## Important Notation about maps
-- If the key starts with a number in a map `1-development`, you must use the colon syntax `:` instead of `=`
-```t
-variable "my_env_names" {
-  type = map(string)
-  default = {
-    "1-development": "dev-apps"
-    "2-staging": "staging-apps"
-    "3-production": "prod-apps"
-  }
+# 4. Resource Group Location
+variable "resoure_group_location" {
+  description = "Resource Group Location"
+  type = string
+  default = "eastus"
+  validation {
+    #condition  = var.resoure_group_location == "eastus" || var.resoure_group_location == "eastus2"
+    #condition = contains(["eastus", "eastus2"], lower(var.resoure_group_location))
+    #error_message = "We only allow Resources to be created in eastus or eastus2 Locations."
+    condition = can(regex("india$", var.resoure_group_location))
+    error_message = "We only allow Resources to be created in westindia and southindia locations."
+  }  
 }
 ```
 
+## Step-10: Run Terraform commands
+```t
+# Validate Terraform configuration files
+terraform validate
+
+# Review the terraform plan
+terraform plan
+
+# Observation
+1. When `resoure_group_location = "westinida"`, terraform plan should pass
+2. When `resoure_group_location = "southindia"`, terraform plan should pass
+3. When `resoure_group_location = "eastus2"`, terraform plan should fail with error message as validation rule failed. 
+```
+
+## Step-11: Clean-Up
+```t
+# Delete Files
+rm -rf .terraform*
+
+# Roll back to state as below for Students seamless demo before git check-in
+# Change-1: c1-variables.tf
+# 4. Resource Group Location
+variable "resoure_group_location" {
+  description = "Resource Group Location"
+  type = string
+  default = "eastus"
+  validation {
+    condition  = var.resoure_group_location == "eastus" || var.resoure_group_location == "eastus2"
+    #condition = contains(["eastus", "eastus2"], lower(var.resoure_group_location))
+    error_message = "We only allow Resources to be created in eastus or eastus2 Locations."
+    #condition = can(regex("india$", var.resoure_group_location))
+    #error_message = "We only allow Resources to be created in westindia and southindia locations."
+  }  
+}
+
+# Change-2: terraform.tfvars
+resoure_group_location = "eastus"
+#resoure_group_location = "westus2"
+#resoure_group_location = "westindia"
+#resoure_group_location = "eastus2"
+```
 
 
 ## References
 - [Terraform Input Variables](https://www.terraform.io/docs/language/values/variables.html)
+
+
+
