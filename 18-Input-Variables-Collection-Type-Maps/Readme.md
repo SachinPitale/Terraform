@@ -13,7 +13,7 @@ description: Terraform Input Variables with Collection Type maps
 ```t
 
 
-## Step-03: Update c4-virtual-network.tf Public IP Resource
+##  Update c4-virtual-network.tf Public IP Resource
 ```t
 # Create Public IP Address
 resource "azurerm_public_ip" "mypublicip" {
@@ -30,7 +30,7 @@ resource "azurerm_public_ip" "mypublicip" {
 
 
 
-## Step-04-02: lookup() function
+##  lookup() function
 - [Terraform lookup function](https://www.terraform.io/docs/language/functions/lookup.html)
 ```t
 # Terraform lookup() Function
@@ -44,7 +44,7 @@ lookup({"eastus"="Basic", "eastus2"="Standard"},"eastus2", "Basic")
 lookup({"eastus"="Basic", "eastus2"="Standard"},"", "Basic")
 ```
 
-## Step-05: Execute Terraform Commands
+## Execute Terraform Commands
 ```t
 # Initialize Terraform
 terraform init
@@ -66,7 +66,7 @@ terraform apply -auto-approve
 2. Verify Tags for Resource Group, Vnet, Public IP and Network Interface
 ```
 
-## Step-06: Uncomment Public Resource below line
+## Uncomment Public Resource below line
 - Understand how to reference a specific value from a map
 ```t
 ## Uncomment
@@ -83,7 +83,7 @@ terraform plan
 1. Verify Public IP resource and SKU should be "Basic"
 ```
 
-## Step-07: Clean-Up
+## Clean-Up
 ```t
 # Destroy Resources
 terraform destroy -auto-approve
@@ -93,7 +93,7 @@ rm -rf .terraform*
 rm -rf terraform.tfstate*
 ```
 
-## Step-08: Important Notation about maps
+## Important Notation about maps
 - If the key starts with a number in a map `1-development`, you must use the colon syntax `:` instead of `=`
 ```t
 variable "my_env_names" {
