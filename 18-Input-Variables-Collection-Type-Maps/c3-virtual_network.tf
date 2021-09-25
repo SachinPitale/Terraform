@@ -28,7 +28,7 @@ resource "azurerm_public_ip" "web1" {
   allocation_method = "Static"
   domain_name_label = "web1-vm-${random_string.myrandom.id}"
   #sku = var.public_ip_sku["eastus"]
-  sku = lookup(var.public_ip_sku, var.resource_group_location, Basic) 
+  sku = lookup(var.public_ip_sku, var.resource_group_location, "Basic") 
   tags =  var.common_tags
   
 }
