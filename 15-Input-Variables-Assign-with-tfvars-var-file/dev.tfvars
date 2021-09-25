@@ -1,2 +1,2 @@
 environment            = "dev"
-resource_group_location = "eastus2"
+resource_group_location = "westus"
