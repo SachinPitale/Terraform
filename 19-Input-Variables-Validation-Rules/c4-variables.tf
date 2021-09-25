@@ -26,8 +26,8 @@ variable "resource_group_location" {
   validation {
     #condition = var.resource_group_location == "eastus" || var.resource_group_location == "eastus2"
     #condition = contain(["eastus", "eastus2"], lower(var.resource_group_location))
-    condition = can(regex("east$", var.resource_group_location) ) 
-    error_message = "We only allow Resources to be created in eastus or eastus2 Locations."
+    condition = can(regex("india$", var.resource_group_location)) 
+    error_message = "We only allow Resources to be created in westindia or southindia  Locations."
   }
 }
 
