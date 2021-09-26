@@ -97,13 +97,13 @@ Observation:
 1. You should get non-redacted original value from terraform.tfstate file
 ```
 
-## Step-09: Generate machine-readable output
+## Generate machine-readable output
 ```t
 # Generate machine-readable output
 terraform output -json
 ```
 
-## Step-10: Destroy Resources
+## Destroy Resources
 ```t
 # Destroy Resources
 terraform destroy -auto-approve
