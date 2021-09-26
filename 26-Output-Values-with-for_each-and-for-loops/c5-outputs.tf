@@ -42,7 +42,7 @@ output "virtual_network_name_map_one_input" {
 }
 
 # Output - For Loop Two Inputs and Map Output with Iterator env and VNET Name
-output "virtual_network_name_map_two_inputs" {
+output "virtual_network_name_map_one_input" {
   description = "Virtual Network - For Loop One Input and Map Output with VNET ID and VNET Name"
   value = {for vnet in azurerm_virtual_network.myvnet: vnet.id => vnet.name }
 }
