@@ -15,7 +15,7 @@ locals {
   # We will learn this when we are dealing with Conditional Expressions
   # The expressions assigned to local value names can either be simple constants or can be more complex expressions that transform or combine values from elsewhere in the module.
   # With Equals (==)
-  vnet_address_space  = (var.environment = "dev" ? var.vnet_address_space_dev : var.vnet_address_space_all)
+  vnet_address_space  = (var.environment == "dev" ? var.vnet_address_space_dev : var.vnet_address_space_all)
 
   # With Not Equals (!=)
   # vnet_address_space = (var.environment =! "dev" ? var.vnet_address_space_all : var.vnet_address_space_dev)
