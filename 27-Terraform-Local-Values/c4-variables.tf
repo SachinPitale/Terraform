@@ -9,8 +9,8 @@ variable "business_unit" {
 # 2. Environment Name
 variable "environment" {
   description = "Environment Name"
-  type = set(string)
-  default = ["dev1", "qa1", "staging1", "prod1"]
+  type = string
+  default = "dev"
 }
 # 3. Resource Group Name
 variable "resoure_group_name" {
@@ -24,7 +24,6 @@ variable "resoure_group_location" {
   type = string
   default = "East US"
 }
-
 # 5. Virtual Network Name
 variable "virtual_network_name" {
   description = "Virtual Network Name"
