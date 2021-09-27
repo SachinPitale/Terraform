@@ -1,5 +1,5 @@
 # Local Values Block
-Local {
+locals {
     # Use-case-1: Shorten the names for more readability
     rg_name = "${var.business_unit}-${var.environment}-${var.resoure_group_name}"
     vnet_name = "${var.business_unit}-${var.environment}-${var.virtual_network_name}"
