@@ -30,7 +30,7 @@ resource "azurerm_linux_virtual_machine" "mylinuxvm" {
   connection {
     type = "ssh"
     host= self.public_ip_address
-    name = self.admin_username
+    user = self.admin_username
     private_key = file("${path.module}/ssh-keys/terraform-azure.pem")
   } 
   
