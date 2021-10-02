@@ -247,11 +247,7 @@ rm -rf .terraform*
 rm -rf terraform.tfstate*
 ```
 
-## Step-07: Roll back change for Student seamless demo
-```t
-# c6-linux-virtual-machine.tf
-Comment last File Provisioner so that it will be enabled when required by students during the step by step process.
-```
+
 
 ## Step-07: Destroy Time Provisioners
 - Discuss about this concept
